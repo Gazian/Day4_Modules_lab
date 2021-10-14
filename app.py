@@ -2,10 +2,11 @@ from data.task_list import *
 from modules.output import *
 from modules.task_list import *
 from modules.input import *
+from data.task_list import tasks
 
 # create a menu
-
 def print_menu():
+    nl()
     print("Options:")
     print("1: Display All Tasks")
     print("2: Get Uncompleted Tasks")
@@ -15,33 +16,53 @@ def print_menu():
     print("6: Find Task by Description")
     print("7: Add a new Task to list")
     print("Q or q: Quit")
+    nl()
 
 while (True):
     print_menu()
-    option = menu_input_1_to_5_and_q()
+    option = get_menu_input()
     if (option.lower() == 'q'):
+        nl()
+        print("Quitting...")
+        for i in range(3, 0, -1):
+            print(i)
+            time.sleep(0.75)
         break
     if option == '1':
-        print_list(tasks)
+        nl()
+        print(task_descriptions(tasks))
+        take_break()
     elif option == '2':
-        print_list(get_uncompleted_tasks(tasks))
+        nl()
+        print(print_uncompleted(tasks))
+        take_break()
     elif option == '3':
-        print_list(get_completed_tasks(tasks))
+        nl()
+        print(print_completed(tasks))
+        take_break()
     elif option == '4':
-        description = menu_task_description()
-        task = get_task_with_description(tasks, description)
-        if task != "Task Not Found":
-            mark_task_complete(task)
+        nl()
+        description = get_description_input()
+        print(complete_task_with_description(description, tasks))
+        take_break()
     elif option == '5':
-        time = enter_task_duration()
-        print_list(get_tasks_taking_longer_than(tasks, time))
+        nl()
+        time = get_time_taken()
+        print(min_time(time, tasks))
+        take_break()
     elif option == '6':
-        description = menu_task_description()
-        print(get_task_with_description(tasks, description))
+        nl()
+        description = get_description_input()
+        print(print_given_tasks(description, tasks))
+        take_break()
     elif option == '7':
-        description = enter_task_description()
-        time_taken = enter_time_taken()
+        nl()
+        description = get_description_input()
+        time_taken = get_time_taken()
         task = create_task(description, time_taken)
-        tasks.append(task)
+        print(add_to_list(tasks, task))
+        take_break()
     else:
-        print("Invalid Input - choose another option")
+        nl()
+        print("Invalid input, choose another option...")
+        take_break()
