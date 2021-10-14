@@ -1,5 +1,7 @@
+from data.task_list import *
 from modules.output import *
 from modules.task_list import *
+from modules.input import *
 
 # create a menu
 
@@ -16,7 +18,7 @@ def print_menu():
 
 while (True):
     print_menu()
-    option = input("Select an option 1, 2, 3, 4, 5 or (Q)uit: ")
+    option = Menu_Input_1_to_5_and_Q()
     if (option.lower() == 'q'):
         break
     if option == '1':
