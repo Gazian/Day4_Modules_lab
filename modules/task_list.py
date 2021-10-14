@@ -1,25 +1,26 @@
 # MVP
-
-## Get list of uncompleted tasks
-def get_uncompleted_tasks(list):
-    uncompleted_tasks = []
-    for task in list:
+# 1. Print a list of uncompleted tasks
+def print_uncompleted(tasks):
+    uncompleted = []
+    for task in tasks:
         if task["completed"] == False:
-            uncompleted_tasks.append(task)
-    return uncompleted_tasks
+            uncompleted.append(task["description"])
+    return uncompleted
 
-## Get list of completed tasks
-def get_completed_tasks(list):
-    completed_tasks = []
-    for task in list:
+# 2. Print a list of completed tasks
+def print_completed(tasks):
+    completed = []
+    for task in tasks:
         if task["completed"] == True:
-            completed_tasks.append(task)
-    return completed_tasks
+            completed.append(task["description"])
+    return completed
 
-## Print list of task descriptions
-def print_task_descriptions(list):
-    for task in list:
-        print(task["description"])
+# 3. Print a list of all task descriptions
+def task_descriptions(tasks):
+    descriptions = []
+    for task in tasks:
+        descriptions.append(task["description"])
+    return descriptions
 
 ## Refactor get_uncompleted_tasks and get_completed_tasks
 def get_tasks_by_status(list, status):
@@ -29,38 +30,41 @@ def get_tasks_by_status(list, status):
             tasks.append(tasks)
     return tasks
 
-## Get tasks where time_taken is at least a given time
-def get_tasks_taking_longer_than(list, time):
-    tasks = []
-    for task in list:
+# 4. Print a list of tasks where time_taken is at least a given time
+def min_time(time, tasks):
+    long_tasks = []
+    for task in tasks:
         if task["time_taken"] >= time:
-            tasks.append(task)
-    return tasks
+            long_tasks.append(task["description"])
+    if len(long_tasks) == 0:
+        return "No tasks over or equal to that time."
+    return long_tasks
 
-## Find any task with specific description
-def get_task_with_description(list, description):
-    for task in list:
-        if task["description"] == description:
+# 5. Print any task with a given description
+def print_given_tasks(description, tasks):
+    for task in tasks:
+        if task["description"].lower() == description.lower():
             return task
-    return "Task Not Found"
+    return "Task not in list."
 
-
-
-def mark_task_complete(task):
-    task["completed"] = True
-
-# Extensions
-
-# create a task
-def create_task(description, time_taken):
+# 7. Add a task to the list
+def create_task(task_description, task_time):
     task = {}
-    task["description"] = description
+    task["description"] = task_description
     task["completed"] = False
-    task["time_taken"] = time_taken
-
+    task["time_taken"] = task_time
     return task
 
 # add a task to the list
 def add_to_list(list, task):
     list.append(task)
+    return "Added task to list."
 
+# find task in list from description and mark as compelte
+def complete_task_with_description(description, list):
+    for element in list:
+        if description.lower() == element["description"].lower():
+            element["completed"] = True
+            return "Task marked as complete."
+    return "Task not found in list."
+        
